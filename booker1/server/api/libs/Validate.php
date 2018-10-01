@@ -3,77 +3,17 @@
 class Validate{
     public static $error;
 
-    public function validateOrder($userId){
-        self::$error = '';
-
-        $this->validateNum($_POST['carId'], "Car id");
-        $this->validateNum($userId, "User id");
-        $this->validateText($_POST['firstName'], "First name");
-        $this->validateText($_POST['lastName'], "Last name");
-        $this->validateNum($_POST['payType'], "Pay type");
-
-        if(self::$error == ''){
-            return array($_POST['carId'], $userId, $_POST['firstName'], $_POST['lastName'], $_POST['payType']);
-        } else {
-            return self::$error;
-        }
-    }
-
-    public function getFilterParams()
-    {
-        if($_GET['filter_auth']){
-            $filter_auth = intval($_GET['filter_auth']);
-        } else{
-            $filter_auth = null;
-        }
-        if($_GET['filter_genre']){
-            $filter_genre = intval($_GET['filter_genre']);
-        } else{
-            $filter_genre = null;
-        }
-        
-        
-        return array('authId' => $filter_auth, 'genreId' => $filter_genre);
-    }
-
-    public function validateRegister()
-    {
-        self::$error = '';
-
-        $firstName = $_POST['firstName'];
-        $lastName = $_POST['lastName'];
-        $login = $_POST['login'];
-        $passwd = $_POST['regPassword'];
-        $passwdAgin = $_POST['regPasswordRepeat'];
-
-        $this->validateText($firstName, "First name");
-        $this->validateText($lastName, "Last name");
-        $this->validateTextNum($login, "Login");
-        $pwd = $this->validateTextNum($passwd, "Password");
-        $pwdAgin = $this->validateTextNum($passwdAgin, "Password repeat");
-        
-        if($pwd && $pwdAgin){
-            $this->validatePassEqual($passwd, $passwdAgin);
-        }
-
-        if(self::$error == ''){
-            return array($firstName, $lastName, $login, $passwd);
-        } else {
-            return self::$error;
-        }
-    }
-
     public function validateLogin(){
         self::$error = '';
 
-        $login = $_SERVER['PHP_AUTH_USER'];
+        $email = $_SERVER['PHP_AUTH_USER'];
         $pwd = $_SERVER['PHP_AUTH_PW'];
 
-        $this->validateTextNum($login, "Login");
+        $this->validateTextNum($email, "Email");
         $this->validateTextNum($pwd, "Password");
 
         if(self::$error == ''){
-            return array($login, $pwd);
+            return array($email, $pwd);
         } else {
             return self::$error;
         }
@@ -117,5 +57,16 @@ class Validate{
             self::$error = "Repeated password isn`t equal.";
             return false;
         }
+    }
+
+    public function validateEmail($email, $fieldName)
+    {
+        if(!is_null($num) && isset($num)){
+            if(!preg_match("[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}", $email){
+                return true;
+            }
+        }
+        self::$error = "Wrong $fieldName format. Please enter a right email";
+        return false;
     }
 }

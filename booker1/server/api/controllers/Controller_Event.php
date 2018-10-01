@@ -7,14 +7,14 @@ class Controller_Event {
         $this->model = new Model_Event();
     }
 
-    public function getEvent()
+    public function getEvent($id = false)
     {
         
     }
 
     public function postEvent()
     {
-        # code...
+        
     }
 
     public function putEvent()

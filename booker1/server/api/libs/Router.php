@@ -17,7 +17,7 @@ class Router
 		$param = $req[$start+2];
 		$func = strtolower($method).ucfirst($class);
 		$controller = "Controller_".ucfirst($class);
-
+		var_dump($class);
 		$params = explode('.', $param);
 		$params[0] = explode('?', $params[0])[0];
 		

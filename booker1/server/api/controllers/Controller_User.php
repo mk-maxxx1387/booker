@@ -8,20 +8,39 @@ class Controller_User {
         $this->model = new Model_User();
     }
 
-    public function getUser()
+    public function getUser($param = false)
     {
-        # code...
+        if($param){
+            return $this->model->getAllUsers();
+        } else {
+            return $this->model->getUserById($param);
+        }
     }
+
     public function postUser()
     {
-        # code...
+        $validate = new Validate();
+        $result = $validate->validateNewUser();
+        if(is_string($result)){
+            return array("code" => 400, "data" => $result);
+        } else {
+            return $this->model->login($result);
+        }
     }
+
     public function putUser()
     {
-        # code...
+        $validate = new Validate();
+        $result = $validate->validateNewUser();
+        if(is_string($result)){
+            return array("code" => 400, "data" => $result);
+        } else {
+            return $this->model->login($result);
+        }
     }
-    public function deleteUser()
+    
+    public function deleteUser($id)
     {
-        # code...
+        return $this->model->deleteUser($id);
     }
 }

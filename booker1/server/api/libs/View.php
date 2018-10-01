@@ -1,7 +1,5 @@
 <?php
 
-include_once('fpdf/fpdf.php');
-
 class View 
 {
     public function __construct($code, $data, $printType) {
