@@ -9,7 +9,7 @@ class Validate{
         $email = $_SERVER['PHP_AUTH_USER'];
         $pwd = $_SERVER['PHP_AUTH_PW'];
 
-        $this->validateTextNum($email, "Email");
+        $this->validateEmail($email, "Email");
         $this->validateTextNum($pwd, "Password");
 
         if(self::$error == ''){
@@ -32,11 +32,11 @@ class Validate{
 
     public function validateTextNum($textNum, $fieldName){
         if(!is_null($textNum) && isset($textNum)){
-            if(preg_match('[A-Za-z0-9]{4,50}', $textNum)){
+            if(preg_match('/[A-Za-z0-9]/', $textNum)){
                 return true;
             }
         }
-        self::$error = "Wrong $fieldName format. Only latin letters and numbers. Lenght between 2 and 65 symbol";
+        self::$error = "Wrong $fieldName format. Only latin letters and numbers. Lenght between 4 and 65 symbol";
         return false;
     }
 
@@ -61,8 +61,8 @@ class Validate{
 
     public function validateEmail($email, $fieldName)
     {
-        if(!is_null($num) && isset($num)){
-            if(!preg_match("[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}", $email){
+        if(!is_null($email) && isset($email)){
+            if(preg_match("/[-0-9a-zA-Z.+_]+@[-0-9a-zA-Z.+_]+.[a-zA-Z]{2,4}/", $email)){
                 return true;
             }
         }

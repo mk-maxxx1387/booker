@@ -1,6 +1,6 @@
 <?php
 
-class Model_User {
+class Model_Event {
     private $db;
 
     public function __construct() {
@@ -24,7 +24,7 @@ class Model_User {
             $event['idRoom'] = $result['id_room'];
             $event['specifics'] = $result['specifics'];
             $event['addEventTime'] = $result['add_event_time'];
-            return $event->getMember();
+            return $event;
         }
     }
 
@@ -40,7 +40,6 @@ class Model_User {
         }
         
         $this->db->queryFetch($sql, $data);
-            
     }
 
     public function addEvent(Event $event)
@@ -148,3 +147,4 @@ class Model_User {
             return $events;
         }
     }
+}

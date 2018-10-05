@@ -19,6 +19,7 @@ class View
                 break;
         }
     }
+
     public function printJson($code, $data)
     {
         if(!is_string($data)){
@@ -35,7 +36,7 @@ class View
                 }
             }
         }
-        
+        header("Content-type: application/json");
         http_response_code($code);
         echo json_encode($data);
     }
@@ -84,17 +85,14 @@ class View
                 $key = 'item'.$key;
             }
             if( is_object($value) ) {
-                //var_dump($value);
                 $subnode = $xml_data->addChild($key);
                 $this->array_to_xml($value, $subnode);
             }
             if( is_array($value) ){
-                //var_dump($value);
                 $subnode = $xml_data->addChild($key);
                 $this->array_to_xml($value, $subnode);
             }
             else {
-                //var_dump($value);
                 if(is_string($value)){
                     $xml_data->addChild("$key",htmlspecialchars("$value"));
                 }  

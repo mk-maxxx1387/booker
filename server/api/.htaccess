@@ -1,3 +1,8 @@
+<Limit GET POST PUT DELETE>
+    Allow from all
+</Limit>
+
+#Header set Access-Control-Allow-Origin "*"
 RewriteEngine On
 
 RewriteBase /~user3/booker/server/api/
@@ -5,4 +10,4 @@ RewriteBase /~user3/booker/server/api/
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule ^.*$ index.php 
+RewriteRule ^(.*)$ index.php 
